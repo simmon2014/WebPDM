@@ -17,7 +17,7 @@
 			font-weight:bold;
 			padding:5px 10px;
 			background:#336699;
-			color:#fff;
+			color:#fff000;
 		}
 		.icon-parenttype{
 			background:url('../res/ico/icon1.ico') no-repeat;
@@ -92,12 +92,13 @@
 						fit="true" fitColumns="true" singleSelect="true">
 					<thead>
 						<tr>
+							<th field="Number" width="50">零件号</th>
 							<th field="Name" width="50">零件名</th>
 							<th field="Code" width="50">零件CODE</th>
-							<th field="TypeNuM" width="50">零件类型</th>
+							<th field="TypeNum" width="50">零件类型</th>
 							<th field="Designer" width="50">设计人员</th>
 							<th field="Material" width="50">材料</th>
-							<th field="DataTime" width="50">日期</th>
+							<th field="Datatime" width="50">日期</th>
 						</tr>
 					</thead>
 				</table>
@@ -105,7 +106,7 @@
 			<div region="center" border="false" style="overflow:hidden">
 				<div class="easyui-layout" fit="true">
 				
-					<div region="east" split="true"  style="width:400px;height:auto">
+					<div region="east" split="true"  style="width:30%;height:auto">
 							<div >
 								<IMG SRC="get_partpic.php?prtnum=137" id="partpic"/>
 							</div>
