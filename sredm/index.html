@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="keywords" content="jquery,ui,easy,easyui,web">
+	<meta name="description" content="easyui help you build your web page easily!">
+	<title>SREDM变型设计系统</title>
+	<link rel="stylesheet" type="text/css" href="../easyui/themes/bootstrap/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../easyui/themes/icon.css">
+	
+	<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+
+	<style type="text/css">
+		.rtitle{
+			font-size:18px;
+			font-weight:bold;
+			padding:5px 10px;
+			background:#336699;
+			color:#fff;
+		}
+		.icon-parenttype{
+			background:url('../res/ico/icon1.ico') no-repeat;
+		}
+		.icon-childtype{
+			background:url('../res/ico/asm.ico') no-repeat;
+		}
+		.icon-rss{
+			background:url('images/rss.gif') no-repeat;
+		}
+	</style>
+	
+	<script type="text/javascript">
+	$(function(){
+			 $('#d-partlist').datagrid({
+				 onSelect: function(index,row){
+				     var prtnum=row.Number;
+					 $('#d-partdim').datagrid('load',{
+						 prtnum: prtnum
+					 });
+					 url='get_partpic.php?prtnum='+prtnum;
+					 $('#partpic').attr('src',url);
+					  //alert(url);
+					// url=$('#partpic')[0].src;
+					 //alert(url);
+					
+				}//,
+				// onLoadSuccess:function(){
+					// var rows = $(this).datagrid('getRows');
+					// if (rows.length){
+						// $(this).datagrid('selectRow',0);
+					// }
+				// }
+			});
+			
+			
+			
+			 $('#t-parttype').tree({
+				onSelect: function(node){
+					 var typeid = node.id;
+					 $('#d-partlist').datagrid('load',{
+						 typeid: typeid
+					 });
+				 }//,
+				 //onLoadSuccess:function(node,data){
+					// if (data.length){
+					//	var id = data[0].children[0].children[0].id;
+					//	var n = $(this).tree('find', id);
+					//	$(this).tree('select', n.target);
+					// }
+					//alert(data);
+				 //}
+			 });
+		 });
+	</script>
+	
+	<script type="text/javascript" src="js/sredm.js"></script>
+	
+</head>
+<body class="easyui-layout">
+	<div region="north" border="false" class="rtitle">
+		SREDM变型设计系统V1.0
+	</div>
+	<div region="west" title="零部件库" split="true" border="false" style="width:200px;background:#EAFDFF;">
+		<ul id="t-parttype" class="easyui-tree" url="get_parttype.php"></ul>
+	</div>
+	<div region="center" border="false">
+		<div class="easyui-layout" fit="true">
+			<div region="north" split="true" border="false" style="height:200px">
+				<table id="d-partlist" class="easyui-datagrid" 
+						url="get_partlist.php"  rownumbers="true" pagination="true" 
+						fit="true" fitColumns="true" singleSelect="true">
+					<thead>
+						<tr>
+							<th field="Name" width="50">零件名</th>
+							<th field="Code" width="50">零件CODE</th>
+							<th field="TypeNuM" width="50">零件类型</th>
+							<th field="Designer" width="50">设计人员</th>
+							<th field="Material" width="50">材料</th>
+							<th field="DataTime" width="50">日期</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+			<div region="center" border="false" style="overflow:hidden">
+				<div class="easyui-layout" fit="true">
+				
+					<div region="east" split="true"  style="width:400px;height:auto">
+							<div >
+								<IMG SRC="get_partpic.php?prtnum=137" id="partpic"/>
+							</div>
+					</div>
+					<div region="center"  >
+						<table id="d-partdim" class="easyui-datagrid" 
+								url="get_partdim.php"  rownumbers="true" pagination="true" 
+								fit="true" fitColumns="true" singleSelect="true">
+							<thead>
+								<tr>
+									<th field="Name" width="50">零件名</th>
+									<th field="IdNum" width="50">尺寸名</th>
+									<th field="Value" width="50">尺寸值</th>
+									<th field="UpLimit" width="50">上极限</th>
+									<th field="DwLimit" width="50">下极限</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
