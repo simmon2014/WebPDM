@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="keywords" content="jquery,ui,easy,easyui,web">
+	<meta name="description" content="easyui help you build your web page easily!">
+	<title>布局设计系统</title>
+	<link rel="stylesheet" type="text/css" href="easyui/themes/bootstrap/easyui.css">
+	<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+	
+	<script type="text/javascript" src="easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+
+	<style type="text/css">
+		.rtitle{
+			font-size:18px;
+			font-weight:bold;
+			padding:5px 0px;
+			background:#336699;
+			color:#fff000;
+			/*text-align:center;
+			margin-left:auto;
+  			margin-right:auto;*/
+		}
+		.icon-parenttype{
+			background:url('../res/ico/icon1.ico') no-repeat;
+		}
+		.icon-childtype{
+			background:url('../res/ico/asm.ico') no-repeat;
+		}
+		.icon-rss{
+			background:url('images/rss.gif') no-repeat;
+		}
+	</style>
+	
+	<script type="text/javascript">
+	$(function(){
+			 $('#d-partlist').datagrid({
+				 onSelect: function(index,row){
+				     var prtnum=row.Number;
+					 $('#d-partdim').datagrid('load',{
+						 prtnum: prtnum
+					 });
+					 url='get_partpic?prtnum='+prtnum;
+					 $('#partpic').attr('src',url);
+				}//,
+
+			});
+			
+			
+			
+			 $('#t-parttype').tree({
+				onSelect: function(node){
+					 var typeid = node.id;
+					 $('#d-partlist').datagrid('load',{
+						 typeid: typeid
+					 });
+				 }//,
+				
+
+			 });
+		 });
+
+
+	function addTab(title, url){
+		if ($('#tt').tabs('exists', title)){
+			$('#tt').tabs('select', title);
+		} else {
+			var content = '<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:100%;"></iframe>';
+			$('#tt').tabs('add',{
+				title:title,
+				content:content,
+				closable:true
+			});
+		}
+	}
+
+	</script>
+	
+	<!--<script type="text/javascript" src="js/sredm.js"></script>-->
+	
+</head>
+<body class="easyui-layout">
+	<div region="north" border="false" class="rtitle">
+		<center>PDM布局设计系统V1.0</center>
+
+		<div style="border:0px solid #ccc;background:#fafafa;padding:0px;width:100%;">
+		<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-add">系统设置</a>
+		<a href="#" class="easyui-splitbutton" menu="#mm" iconCls="icon-edit">设备选择</a>
+		<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-remove">缓冲分配</a>
+		<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-sum">布局设计</a>
+		<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-tip">结构设计</a>
+		<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-filter">自动装配</a>
+		<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-help">系统帮助</a>
+		</div>
+		<div id="mm" style="width:150px;">
+			<div iconCls="icon-undo">Undo</div>
+			<div iconCls="icon-redo">Redo</div>
+			<div class="menu-sep"></div>
+			<div>Cut</div>
+			<div>Copy</div>
+			<div>Paste</div>
+			<div class="menu-sep"></div>
+			<div>
+				<span>Open</span>
+				<div style="width:150px;">
+					<div>Firefox</div>
+					<div>Internet Explorer</div>
+					<div class="menu-sep"></div>
+					<div>Select Program...</div>
+				</div>
+			</div>
+			<div iconCls="icon-remove">Delete</div>
+			<div>Select All</div>
+		</div>
+	</div>
+	
+	<div region="south" border="false" class="rtitle">
+		<center>DESIGN BY simmon</center>
+	</div>
+
+	<div region="west" title="功能库" split="true" border="false" style="width:200px;background:#EAFDFF;">
+		<div class="easyui-accordion" style="height:100%;">
+			<div title="About Accordion" iconCls="icon-ok" style="overflow:auto;padding:10px;">
+				<h3 style="color:#0099FF;">Accordion for jQuery</h3>
+				<p>Accordion is a part of easyui framework for jQuery. It lets you define your accordion component on web page more easily.</p>
+			</div>
+			<div title="About easyui" iconCls="icon-reload" selected="true" style="padding:10px;">
+				easyui help you build your web page easily
+				<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-remove"
+				onclick="addTab('缓冲分配','../../javascript/WordNoteWeb.html')">缓冲分配</a>
+				<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-sum"
+				onclick="addTab('布局设计','../../javascript/main.html')">布局设计</a>
+				<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-tip"
+				onclick="addTab('结构设计','../../javascript/WordNoteWebsql.html')">结构设计</a>
+				<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-filter"
+				onclick="addTab('自动装配','../../javascript/First.html')">自动装配</a>
+			</div>
+			<div title="Tree Menu" iconCls="icon-man">
+				<ul id="t-parttype" class="easyui-tree" url="get_parttype.php"></ul>
+			</div>
+		</div>
+
+	</div>
+	<div region="center" border="false">
+		<div class="easyui-tabs" id="tt" style="width:100%;height:100%;">
+			<div title="零部件信息" style="padding:10px;">
+				<div class="easyui-layout" fit="true">
+					<div region="north" split="true" border="false" style="height:200px">
+						<table id="d-partlist" class="easyui-datagrid" 
+								url="get_partlist"  rownumbers="true" pagination="true" 
+								fit="true" fitColumns="true" singleSelect="true">
+							<thead>
+								<tr>
+									<th field="Number" width="50">零件号</th>
+									<th field="Name" width="50">零件名</th>
+									<th field="Code" width="50">零件CODE</th>
+									<th field="TypeNum" width="50">零件类型</th>
+									<th field="Designer" width="50">设计人员</th>
+									<th field="Material" width="50">材料</th>
+									<th field="Datatime" width="50">日期</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					<div region="center" border="false" style="overflow:hidden">
+						<div class="easyui-layout" fit="true">
+						
+							<div region="east" split="true"  style="width:30%;height:auto">
+									<div >
+										<IMG SRC="get_partpic?prtnum=137" id="partpic"/>
+									</div>
+							</div>
+							<div region="center"  >
+								<table id="d-partdim" class="easyui-datagrid" 
+										url="get_partdim.php"  rownumbers="true" pagination="true" 
+										fit="true" fitColumns="true" singleSelect="true">
+									<thead>
+										<tr>
+											<th field="Name" width="50">零件名</th>
+											<th field="IdNum" width="50">尺寸名</th>
+											<th field="Value" width="50">尺寸值</th>
+											<th field="UpLimit" width="50">上极限</th>
+											<th field="DwLimit" width="50">下极限</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div title="布局信息" closable="true" style="padding:10px;">
+				Second Tab
+			</div>
+			<div title="缓冲信息" iconCls="icon-reload" closable="true" style="padding:10px;">
+				Third Tab
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>
